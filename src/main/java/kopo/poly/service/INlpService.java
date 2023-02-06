@@ -1,6 +1,6 @@
 package kopo.poly.service;
 
-import java.util.List;
+import kopo.poly.dto.NlpDTO;
 
 public interface INlpService {
 
@@ -9,7 +9,7 @@ public interface INlpService {
      *
      * @param text 분석할 문장
      */
-    String getPlainText(String text);
+    NlpDTO getPlainText(String text);
 
     /**
      * 분석할 문장의 형태소 중 명사만 가져오기
@@ -17,6 +17,6 @@ public interface INlpService {
      * @param text 분석할 문장
      * @return 명사 결과는 여러 개가 추출되기에 1차원 배열 구조인 List 사용
      */
-    List<String> getNouns(String text);
+    NlpDTO getNouns(String text);
 
 }

@@ -1,5 +1,6 @@
 package kopo.poly;
 
+import kopo.poly.dto.NlpDTO;
 import kopo.poly.dto.OcrDTO;
 import kopo.poly.service.INlpService;
 import kopo.poly.service.IOcrService;
@@ -52,11 +53,13 @@ public class AiJavaPrjApplication implements CommandLineRunner {
         log.info(result);
 
         log.info("---------------------------------------------------------------------------");
-        String plainText = nlpService.getPlainText(result);
-        log.info("형태소별 품사 분석 결과 : " + plainText);
+        NlpDTO nlpDTO = nlpService.getPlainText(result);
+        log.info("형태소별 품사 분석 결과 : " + nlpDTO.getResult());
 
         // 명사 추출 결과
-        List<String> nouns = nlpService.getNouns(result);
+        nlpDTO = nlpService.getNouns(result);
+
+        List<String> nouns = nlpDTO.getNouns(); // 명사 추출결과를 nouns 변수에 저장하기
 
         // 중복을 포함하는 List 구조의 nouns 객체의 값들을 중복제거
         // Set 구조는 중복을 허용하지 않기 때문에 List -> Set 구조로 변환하면 자동으로 중복된 값은 제거됨
