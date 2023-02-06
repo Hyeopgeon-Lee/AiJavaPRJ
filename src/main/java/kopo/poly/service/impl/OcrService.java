@@ -5,11 +5,8 @@ import kopo.poly.service.IOcrService;
 import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
 
 @Slf4j
 @Service

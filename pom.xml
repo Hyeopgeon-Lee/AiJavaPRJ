@@ -26,6 +26,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.github.shin285</groupId>
+            <artifactId>KOMORAN</artifactId>
+            <version>3.3.4</version>
+        </dependency>
+
         <!-- OCR 구현을 위한 Tesseract 라이브러리 다운로드 -->
         <dependency>
             <groupId>net.sourceforge.tess4j</groupId>
@@ -33,11 +39,7 @@
             <version>5.2.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.shin285</groupId>
-            <artifactId>KOMORAN</artifactId>
-            <version>3.3.4</version>
-        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

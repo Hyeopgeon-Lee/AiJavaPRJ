@@ -77,7 +77,7 @@ public class AiJavaPrjApplication implements CommandLineRunner {
             int count = Collections.frequency(nouns, s); // 단어 빈도수
             rMap.put(s, count); // 단어, 빈도수를 Map 구조로 저장
 
-            log.info(s, count); // 저장된 결과 출력하기
+            log.info(s + " : " + count); // 저장된 결과 출력하기
 
         }
 
