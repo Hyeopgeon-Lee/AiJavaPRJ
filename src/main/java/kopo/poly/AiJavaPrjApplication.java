@@ -1,10 +1,8 @@
 package kopo.poly;
 
 import kopo.poly.dto.OcrDTO;
-import kopo.poly.service.impl.OcrService;
-import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
-import kr.co.shineware.nlp.komoran.core.Komoran;
-import kr.co.shineware.nlp.komoran.model.KomoranResult;
+import kopo.poly.service.INlpService;
+import kopo.poly.service.IOcrService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +19,10 @@ public class AiJavaPrjApplication implements CommandLineRunner {
     // @Service 정의된 자바 파일
     // Spring Frameworks 실행될 때, @Service 정의한 자바는 자동으로 메모리에 올림
     // 메모리에 올라간 OcrService 객체를 ocrService 변수에 객체를 넣어주기
-    private final OcrService ocrService;
+    private final IOcrService ocrService; // 이미지 인식
+
+    private final INlpService nlpService; // 자연어 처리
+
 
     public static void main(String[] args) {
 
@@ -50,18 +51,12 @@ public class AiJavaPrjApplication implements CommandLineRunner {
         log.info("인식된 문자열");
         log.info(result);
 
-        // 자연어 처리 기술 중 형태소분석(koNLP) 중 Komoran
-        Komoran komoran = new Komoran(DEFAULT_MODEL.FULL); // 학습용 데이터는 가장 큰 파일 사용
+        log.info("---------------------------------------------------------------------------");
+        String plainText = nlpService.getPlainText(result);
+        log.info("형태소별 품사 분석 결과 : " + plainText);
 
-        KomoranResult komoranResult = komoran.analyze(result); // 인식된 문자열 분석 결과
-
-        String plainText = komoranResult.getPlainText(); // 모든 단어마다 품사 태킹
-        log.info("단어별 품사 분석 결과 : " + plainText);
-
-        List<String> nouns = komoranResult.getNouns(); // NNG, NNP 품사만 추출함
-        log.info("명사만 추출 : " + nouns);
-
-        // 가장 많이 사용된 단어는?
+        // 명사 추출 결과
+        List<String> nouns = nlpService.getNouns(result);
 
         // 중복을 포함하는 List 구조의 nouns 객체의 값들을 중복제거
         // Set 구조는 중복을 허용하지 않기 때문에 List -> Set 구조로 변환하면 자동으로 중복된 값은 제거됨
