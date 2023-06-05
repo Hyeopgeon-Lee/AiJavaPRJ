@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class StudentService implements IStudentService {
 
-    private final IStudentMapper StudentMapper; // 오라클 DB와 연결된 Mapper
+    private final IStudentMapper studentMapper; // 오라클 DB와 연결된 Mapper
 
     @Override
     public List<StudentDTO> insertStudent(StudentDTO pDTO) throws Exception {
@@ -24,15 +24,17 @@ public class StudentService implements IStudentService {
         log.info(this.getClass().getName() + ".insertStudent Start!");
 
         // Student 테이블에 등록된 학생 아이디가 존재하는지 체크하기 위해 DB 조회하기
-        Optional<StudentDTO> res = Optional.ofNullable(StudentMapper.getStudent(pDTO));
+        Optional<StudentDTO> res = Optional.ofNullable(
+                studentMapper.getStudent(pDTO)
+        );
 
         if (!res.isPresent()) { // DB 조회 결과로 회원아이디가 존재하지 않는다면...
-            StudentMapper.insertStudent(pDTO); // 학생 등록 SQL 실행하기
+            studentMapper.insertStudent(pDTO); // 학생 등록 SQL 실행하기
 
         }
 
         // 학생 테이블 전체 조회하기
-        List<StudentDTO> rList = Optional.ofNullable(StudentMapper.getStudentList()).orElseGet(ArrayList::new);
+        List<StudentDTO> rList = Optional.ofNullable(studentMapper.getStudentList()).orElseGet(ArrayList::new);
 
         log.info(this.getClass().getName() + ".insertStudent End!");
 
@@ -44,10 +46,10 @@ public class StudentService implements IStudentService {
 
         log.info(this.getClass().getName() + ".updateStudent Start!");
 
-        StudentMapper.updateStudent(pDTO); // 학생 수정 SQL 실행하기
+        studentMapper.updateStudent(pDTO); // 학생 수정 SQL 실행하기
 
         // 학생 테이블 전체 조회하기
-        List<StudentDTO> rList = Optional.ofNullable(StudentMapper.getStudentList()).orElseGet(ArrayList::new);
+        List<StudentDTO> rList = Optional.ofNullable(studentMapper.getStudentList()).orElseGet(ArrayList::new);
 
         log.info(this.getClass().getName() + ".updateStudent End!");
 
@@ -59,10 +61,10 @@ public class StudentService implements IStudentService {
 
         log.info(this.getClass().getName() + ".deleteStudent Start!");
 
-        StudentMapper.deleteStudent(pDTO); // 학생 삭제 SQL 실행하기
+        studentMapper.deleteStudent(pDTO); // 학생 삭제 SQL 실행하기
 
         // 학생 테이블 전체 조회하기
-        List<StudentDTO> rList = Optional.ofNullable(StudentMapper.getStudentList()).orElseGet(ArrayList::new);
+        List<StudentDTO> rList = Optional.ofNullable(studentMapper.getStudentList()).orElseGet(ArrayList::new);
 
         log.info(this.getClass().getName() + ".deleteStudent End!");
 
