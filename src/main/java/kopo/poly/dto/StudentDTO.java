@@ -12,5 +12,5 @@ public class StudentDTO {
     private String email; // 이메일
     private String addr; // 주소
 
-
 }
+
